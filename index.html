@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/arflex-icon.png">
+<title>Arflex Engenharia</title>
+<script src="./image-slot.js"></script>
+<style>
+  body { margin:0; background:#FFFFFF; font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased; }
+  a { color:#3DA51D; text-decoration:none; }
+  a:hover { color:#176B20; }
+  ::-webkit-scrollbar { display:none; }
+  @keyframes wa-pulse { 0%{box-shadow:0 0 0 0 rgba(61,165,29,0.45);} 70%{box-shadow:0 0 0 16px rgba(61,165,29,0);} 100%{box-shadow:0 0 0 0 rgba(61,165,29,0);} }
+  @keyframes play-pulse { 0%{transform:scale(1);opacity:0.6;} 100%{transform:scale(1.7);opacity:0;} }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+</helmet>
+<div style="overflow-x:hidden;background:#FFFFFF;color:#171717;font-family:'Inter',sans-serif;">
+
+<header style="position:sticky;top:0;z-index:50;width:100%;">
+  <div style="{{ headerBarStyle }}">
+    <div style="max-width:1280px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
+<a href="#inicio" style="display:flex;align-items:center;">
+        <img src="assets/arflex-logo.png" alt="Arflex Ar Condicionado" style="height:48px;width:auto;object-fit:contain;"/>
+      </a>
+
+      <sc-if value="{{ !isMobile }}" hint-placeholder-val="{{ true }}">
+        <nav style="display:flex;align-items:center;gap:20px;flex-shrink:1;">
+          <a href="#inicio" style="font-size:13.5px;font-weight:700;color:#171717;padding-bottom:4px;border-bottom:2px solid #3DA51D;white-space:nowrap;">Início</a>
+          <sc-for list="{{ navItemsRest }}" as="item" hint-placeholder-count="5">
+            <a href="{{ item.href }}" style="font-size:13.5px;font-weight:600;color:#171717;padding-bottom:4px;border-bottom:2px solid transparent;white-space:nowrap;" style-hover="border-bottom:2px solid #3DA51D;">{{ item.label }}</a>
+          </sc-for>
+        </nav>
+      </sc-if>
+
+      <sc-if value="{{ !isMobile }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <a href="tel:+554830254004" aria-label="Ligar para a Arflex" style="width:38px;height:38px;border-radius:50%;background:#F5FAF3;display:flex;align-items:center;justify-content:center;flex-shrink:0;" style-hover="background:#3DA51D;">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="#3DA51D"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24 11.3 11.3 0 003.55.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.3 11.3 0 00.57 3.55 1 1 0 01-.25 1.02z"/></svg>
+          </a>
+          <a href="https://instagram.com" aria-label="Instagram" target="_blank" style="width:38px;height:38px;border-radius:50%;background:#F5FAF3;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <span style="position:relative;width:17px;height:17px;border:2px solid #3DA51D;border-radius:6px;">
+              <span style="position:absolute;top:50%;left:50%;width:7px;height:7px;border:2px solid #3DA51D;border-radius:50%;transform:translate(-50%,-50%);"></span>
+              <span style="position:absolute;top:-2px;right:-2px;width:3px;height:3px;border-radius:50%;background:#3DA51D;"></span>
+            </span>
+          </a>
+          <a href="#contato" aria-label="Falar no WhatsApp" style="display:flex;align-items:center;gap:8px;background:#3DA51D;color:#FFFFFF;padding:12px 22px;border-radius:999px;font-weight:700;font-size:14px;white-space:nowrap;" style-hover="background:#176B20;">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="#FFFFFF" style="flex-shrink:0;"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.79.47 3.48 1.29 4.94L2 22l5.29-1.39a9.87 9.87 0 004.75 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0012.04 2zm5.72 14.1c-.24.68-1.19 1.25-1.95 1.41-.52.11-1.2.2-3.48-.75-2.92-1.21-4.8-4.17-4.95-4.36-.14-.19-1.19-1.58-1.19-3.02 0-1.43.75-2.14 1.02-2.43.26-.29.57-.36.76-.36.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2.01.88 2.16.07.15.12.32.02.51-.09.19-.14.31-.28.48-.14.17-.29.37-.42.5-.14.14-.28.29-.12.57.16.28.71 1.17 1.52 1.9 1.05.94 1.93 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.18-.28.36-.23.61-.14.25.09 1.6.76 1.87.9.27.14.45.21.52.33.07.12.07.68-.17 1.36z"/></svg>
+            Fale no WhatsApp
+          </a>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ toggleMobileMenu }}" aria-label="Abrir menu" style="display:flex;flex-direction:column;gap:5px;background:none;border:none;padding:8px;cursor:pointer;">
+          <span style="width:24px;height:2px;background:#171717;border-radius:2px;"></span>
+          <span style="width:24px;height:2px;background:#171717;border-radius:2px;"></span>
+          <span style="width:24px;height:2px;background:#171717;border-radius:2px;"></span>
+        </button>
+      </sc-if>
+    </div>
+  </div>
+</header>
+
+<sc-if value="{{ mobileMenuOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;background:#FFFFFF;z-index:60;display:flex;flex-direction:column;padding:24px 32px;overflow-y:auto;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;">
+      <img src="assets/arflex-logo.png" alt="Arflex Ar Condicionado" style="height:38px;width:auto;object-fit:contain;"/>
+      <button onClick="{{ closeMobileMenu }}" aria-label="Fechar menu" style="position:relative;width:28px;height:28px;background:none;border:none;cursor:pointer;">
+        <span style="position:absolute;top:50%;left:0;width:100%;height:2px;background:#171717;transform:rotate(45deg);"></span>
+        <span style="position:absolute;top:50%;left:0;width:100%;height:2px;background:#171717;transform:rotate(-45deg);"></span>
+      </button>
+    </div>
+    <a onClick="{{ closeMobileMenu }}" href="#inicio" style="font-size:20px;font-weight:700;color:#171717;padding:14px 0;border-bottom:1px solid #F5FAF3;">Início</a>
+    <sc-for list="{{ navItemsRest }}" as="item" hint-placeholder-count="5">
+      <a onClick="{{ closeMobileMenu }}" href="{{ item.href }}" style="font-size:20px;font-weight:700;color:#171717;padding:14px 0;border-bottom:1px solid #F5FAF3;">{{ item.label }}</a>
+    </sc-for>
+    <a onClick="{{ closeMobileMenu }}" href="#contato" style="margin-top:28px;background:#3DA51D;color:#fff;text-align:center;padding:16px;border-radius:999px;font-weight:700;">Fale no WhatsApp</a>
+  </div>
+</sc-if>
+
+<section id="inicio" style="background:#FFFFFF;padding:clamp(64px,10vw,120px) clamp(20px,5vw,64px) 96px;">
+  <div ref="{{ heroRevealRef }}" style="{{ heroInnerStyle }}">
+    <div style="flex:1;min-width:280px;">
+      <p style="color:#3DA51D;font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase;margin:0 0 20px;">Engenharia da climatização</p>
+      <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(34px,5vw,56px);line-height:1.08;color:#171717;margin:0 0 20px;letter-spacing:-1px;">Soluções completas<br/><span style="color:#3DA51D;">em climatização</span></h1>
+      <p style="font-size:17px;line-height:1.6;color:#666666;max-width:460px;margin:0 0 32px;">A Arflex Engenharia oferece soluções completas em climatização, com qualidade, eficiência e tecnologia para ambientes mais confortáveis e sustentáveis.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:48px;">
+        <a href="#servicos" style="background:#3DA51D;color:#fff;padding:15px 28px;border-radius:999px;font-weight:700;font-size:15px;" style-hover="background:#176B20;">Nossos Serviços →</a>
+        <a href="#contato" style="border:2px solid #3DA51D;color:#3DA51D;padding:13px 26px;border-radius:999px;font-weight:700;font-size:15px;background:#fff;" style-hover="background:#F5FAF3;">Fale no WhatsApp</a>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:28px;">
+        <sc-for list="{{ heroPerks }}" as="perk" hint-placeholder-count="3">
+          <div style="display:flex;align-items:flex-start;gap:12px;max-width:180px;">
+            <span style="width:38px;height:38px;border-radius:50%;background:#F5FAF3;flex-shrink:0;position:relative;">
+              <span style="position:absolute;top:50%;left:50%;width:12px;height:7px;border-left:2px solid #3DA51D;border-bottom:2px solid #3DA51D;transform:translate(-50%,-65%) rotate(-45deg);"></span>
+            </span>
+            <div>
+              <div style="font-weight:700;font-size:14px;color:#171717;margin-bottom:2px;">{{ perk.title }}</div>
+              <div style="font-size:13px;color:#666666;line-height:1.4;">{{ perk.desc }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="{{ heroImageWrapStyle }}">
+      <image-slot id="hero-main" shape="rounded" radius="24" placeholder="Foto real: fachada / sede Arflex" src="assets/images/hero-fachada.jpg" style="width:100%;aspect-ratio:4/3;display:block;"></image-slot>
+      <div onClick="{{ openVideo }}" style="{{ heroCardStyle }}">
+        <span style="position:relative;width:40px;height:40px;border-radius:50%;background:#3DA51D;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+          <span style="position:absolute;inset:0;border-radius:50%;background:#3DA51D;animation:play-pulse 2s ease-out infinite;"></span>
+          <span style="width:0;height:0;border-top:7px solid transparent;border-bottom:7px solid transparent;border-left:11px solid #fff;margin-left:3px;position:relative;"></span>
+        </span>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#171717;">Assista ao vídeo</div>
+          <div style="font-size:12px;color:#666666;">Conheça mais sobre a Arflex Engenharia</div>
+        </div>
+      </div>
+<sc-if value="{{ !isMobile }}" hint-placeholder-val="{{ true }}">
+        <div style="{{ heroSecondaryStyle }}">
+          <image-slot id="hero-secondary" shape="rect" placeholder="Foto: veículo/equipamento" src="assets/images/hero-equipamento.jpg" style="width:100%;height:100%;"></image-slot>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</section>
+
+<section style="background:#FFFFFF;padding:8px 32px 64px;">
+  <div ref="{{ trustRevealRef }}" style="{{ trustInnerStyle }}">
+    <p style="text-align:center;color:#3DA51D;font-weight:700;font-size:clamp(13px,1.4vw,15px);letter-spacing:3px;text-transform:uppercase;margin:0 0 18px;">• Confiança que se constrói •</p>
+    <p data-placeholder="true" title="Dado de exemplo — confirmar número real com o cliente" style="text-align:center;font-size:clamp(20px,3.2vw,32px);color:#171717;margin:0;font-weight:600;">Mais de <span style="color:#3DA51D;font-weight:800;">+500</span> projetos entregues com excelência em todo o Brasil.</p>
+  </div>
+</section>
+
+<section id="servicos" style="background:#FFFFFF;padding:64px 32px 96px;">
+  <div ref="{{ servicesRevealRef }}" style="{{ servicesInnerStyle }}">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;">
+      <div style="max-width:520px;">
+        <p style="color:#3DA51D;font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase;margin:0 0 14px;">Nossos serviços</p>
+        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(28px,4vw,40px);color:#171717;margin:0 0 14px;letter-spacing:-0.5px;">Soluções completas para cada <span style="color:#3DA51D;">necessidade</span></h2>
+        <p style="font-size:16px;color:#666666;line-height:1.6;margin:0;">Da instalação à manutenção, oferecemos serviços especializados para garantir o máximo desempenho dos seus sistemas de climatização.</p>
+      </div>
+      <a href="#contato" style="background:#3DA51D;color:#fff;padding:14px 26px;border-radius:999px;font-weight:700;font-size:14px;white-space:nowrap;" style-hover="background:#176B20;">Ver todos os serviços →</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px;margin-top:48px;">
+      <sc-for list="{{ services }}" as="service" hint-placeholder-count="4">
+        <div style="background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 4px 20px rgba(23,23,23,0.06);transition:transform 0.3s ease, box-shadow 0.3s ease;" style-hover="transform:translateY(-6px);box-shadow:0 20px 40px rgba(23,23,23,0.12);">
+          <div style="position:relative;">
+            <image-slot id="{{ service.slot }}" shape="rect" placeholder="Foto: serviço" src="{{ service.img }}" style="width:100%;aspect-ratio:4/3;display:block;"></image-slot>
+            <span style="position:absolute;left:20px;bottom:-20px;width:44px;height:44px;border-radius:50%;background:#F5FAF3;border:3px solid #fff;display:flex;align-items:center;justify-content:center;">
+              <span style="width:14px;height:14px;border-radius:4px;background:#3DA51D;"></span>
+            </span>
+          </div>
+          <div style="padding:32px 20px 24px;">
+            <div style="font-weight:700;font-size:17px;color:#171717;margin-bottom:8px;">{{ service.title }}</div>
+            <div style="font-size:14px;color:#666666;line-height:1.5;">{{ service.desc }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section style="padding:0 32px 96px;">
+  <div ref="{{ statsRevealRef }}" style="{{ statsInnerStyle }}">
+    <sc-for list="{{ stats }}" as="stat" hint-placeholder-count="4">
+      <div data-placeholder="true" title="Dado de exemplo — confirmar número real com o cliente" style="text-align:center;color:#fff;">
+        <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(30px,4vw,44px);">+{{ stat.value }}</div>
+        <div style="font-size:14px;opacity:0.9;margin-top:6px;">{{ stat.label }}</div>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<section id="projetos" style="background:#FFFFFF;padding:0 32px 96px;">
+  <div ref="{{ projectsRevealRef }}" style="{{ projectsInnerStyle }}">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;">
+      <div style="max-width:560px;">
+        <p style="color:#3DA51D;font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase;margin:0 0 14px;">Nossos projetos</p>
+        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(28px,4vw,40px);color:#171717;margin:0 0 14px;letter-spacing:-0.5px;">Obras que resultam em <span style="color:#3DA51D;">conforto e eficiência</span></h2>
+        <p style="font-size:16px;color:#666666;line-height:1.6;margin:0;">Conheça alguns dos projetos que refletem nosso compromisso com qualidade e excelência.</p>
+      </div>
+      <a href="#contato" style="background:#3DA51D;color:#fff;padding:14px 26px;border-radius:999px;font-weight:700;font-size:14px;white-space:nowrap;" style-hover="background:#176B20;">Ver todos os projetos →</a>
+    </div>
+    <div ref="{{ setProjectTrackRef }}" style="display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;padding:8px 4px 8px;margin-top:40px;">
+      <sc-for list="{{ projects }}" as="project" hint-placeholder-count="3">
+        <div ref="{{ project.ref }}" style="flex:0 0 min(320px,80vw);scroll-snap-align:start;">
+          <div style="position:relative;border-radius:18px;overflow:hidden;box-shadow:0 4px 20px rgba(23,23,23,0.08);" style-hover="opacity:0.92;">
+            <image-slot id="{{ project.slot }}" shape="rect" placeholder="Foto do projeto" src="{{ project.img }}" style="width:100%;aspect-ratio:4/3;display:block;"></image-slot>
+            <span style="position:absolute;top:16px;left:16px;background:rgba(255,255,255,0.92);color:#171717;font-size:12px;font-weight:700;padding:6px 12px;border-radius:999px;">{{ project.category }}</span>
+          </div>
+          <div style="padding:14px 4px 0;">
+            <div style="font-weight:700;font-size:15px;color:#171717;">{{ project.category }}</div>
+            <div style="font-size:13px;color:#666666;margin-top:2px;">{{ project.meta }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;justify-content:center;gap:8px;margin-top:16px;">
+      <sc-for list="{{ projectDots }}" as="dot" hint-placeholder-count="3">
+        <button onClick="{{ dot.onClick }}" aria-label="Ir para projeto" style="{{ dot.style }}"></button>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="marcas" style="background:#FFFFFF;padding:0 32px 96px;">
+  <div ref="{{ brandsRevealRef }}" style="{{ brandsInnerStyle }}">
+    <p data-placeholder="true" title="Confirmar quais marcas parceiras estão autorizadas" style="text-align:center;color:#3DA51D;font-weight:700;font-size:12px;letter-spacing:3px;text-transform:uppercase;margin:0 0 32px;">• Trabalhamos com as melhores marcas •</p>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:20px;">
+      <div style="display:flex;align-items:center;justify-content:center;width:150px;height:84px;background:#F5FAF3;border-radius:14px;padding:16px;filter:grayscale(1);opacity:0.65;transition:opacity 0.3s ease,filter 0.3s ease;" style-hover="filter:grayscale(0);opacity:1;">
+        <img src="assets/brands/daikin.png" alt="Daikin" style="max-width:100%;max-height:100%;object-fit:contain;"/>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;width:150px;height:84px;background:#F5FAF3;border-radius:14px;padding:16px;filter:grayscale(1);opacity:0.65;transition:opacity 0.3s ease,filter 0.3s ease;" style-hover="filter:grayscale(0);opacity:1;">
+        <img src="assets/brands/lg.png" alt="LG" style="max-width:100%;max-height:100%;object-fit:contain;"/>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;width:150px;height:84px;background:#F5FAF3;border-radius:14px;padding:16px;filter:grayscale(1);opacity:0.65;transition:opacity 0.3s ease,filter 0.3s ease;" style-hover="filter:grayscale(0);opacity:1;">
+        <img src="assets/brands/mitsubishi.png" alt="Mitsubishi Electric" style="max-width:100%;max-height:100%;object-fit:contain;"/>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;width:150px;height:84px;background:#F5FAF3;border-radius:14px;padding:16px;filter:grayscale(1);opacity:0.65;transition:opacity 0.3s ease,filter 0.3s ease;" style-hover="filter:grayscale(0);opacity:1;">
+        <img src="assets/brands/hitachi.png" alt="Hitachi" style="max-width:100%;max-height:100%;object-fit:contain;"/>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;width:150px;height:84px;background:#F5FAF3;border-radius:14px;padding:16px;filter:grayscale(1);opacity:0.65;transition:opacity 0.3s ease,filter 0.3s ease;" style-hover="filter:grayscale(0);opacity:1;">
+        <img src="assets/brands/carrier.png" alt="Carrier" style="max-width:100%;max-height:100%;object-fit:contain;"/>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;width:150px;height:84px;background:#F5FAF3;border-radius:14px;padding:16px;filter:grayscale(1);opacity:0.65;transition:opacity 0.3s ease,filter 0.3s ease;" style-hover="filter:grayscale(0);opacity:1;">
+        <img src="assets/brands/trane.png" alt="Trane" style="max-width:100%;max-height:100%;object-fit:contain;"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sobre" style="background:#F5FAF3;padding:96px 32px;">
+  <div ref="{{ whyRevealRef }}" style="{{ whyInnerStyle }}">
+    <div style="max-width:720px;margin:0 auto;">
+      <p style="color:#3DA51D;font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase;margin:0 0 14px;text-align:center;">Por que escolher a Arflex</p>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(26px,3.6vw,36px);color:#171717;margin:0 0 20px;letter-spacing:-0.5px;text-align:center;">Compromisso com qualidade, eficiência e satisfação</h2>
+      <sc-for list="{{ why }}" as="item" hint-placeholder-count="4">
+        <div style="display:flex;align-items:center;gap:16px;padding:18px 0;border-bottom:1px solid rgba(23,23,23,0.08);">
+          <span style="width:34px;height:34px;border-radius:50%;background:#fff;flex-shrink:0;position:relative;">
+            <span style="position:absolute;top:50%;left:50%;width:12px;height:7px;border-left:2px solid #3DA51D;border-bottom:2px solid #3DA51D;transform:translate(-50%,-65%) rotate(-45deg);"></span>
+          </span>
+          <div style="flex:1;">
+            <div style="font-weight:700;font-size:15px;color:#171717;">{{ item.title }}</div>
+            <div style="font-size:13.5px;color:#666666;margin-top:2px;line-height:1.5;">{{ item.desc }}</div>
+          </div>
+          <span style="font-size:20px;color:#3DA51D;">›</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="contato" style="background:#FAFAFA;padding:96px 32px;">
+  <div ref="{{ ctaRevealRef }}" style="{{ ctaInnerStyle }}">
+    <div style="max-width:560px;margin:0 auto;text-align:center;">
+      <div style="display:flex;align-items:center;justify-content:center;margin:0 auto 24px;">
+        <img src="assets/arflex-logo.png" alt="Arflex Ar Condicionado" style="height:52px;width:auto;object-fit:contain;"/>
+      </div>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(26px,3.6vw,36px);color:#171717;margin:0 0 14px;">Vamos conversar sobre o seu projeto?</h2>
+      <p style="font-size:16px;color:#666666;line-height:1.6;margin:0 auto 28px;max-width:420px;">Fale com nossos especialistas e receba uma proposta personalizada para sua necessidade.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;">
+        <a href="#" style="display:flex;align-items:center;gap:10px;background:#3DA51D;color:#fff;padding:15px 26px;border-radius:999px;font-weight:700;font-size:14px;" style-hover="background:#176B20;">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="#FFFFFF" style="flex-shrink:0;"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.79.47 3.48 1.29 4.94L2 22l5.29-1.39a9.87 9.87 0 004.75 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0012.04 2zm5.72 14.1c-.24.68-1.19 1.25-1.95 1.41-.52.11-1.2.2-3.48-.75-2.92-1.21-4.8-4.17-4.95-4.36-.14-.19-1.19-1.58-1.19-3.02 0-1.43.75-2.14 1.02-2.43.26-.29.57-.36.76-.36.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2.01.88 2.16.07.15.12.32.02.51-.09.19-.14.31-.28.48-.14.17-.29.37-.42.5-.14.14-.28.29-.12.57.16.28.71 1.17 1.52 1.9 1.05.94 1.93 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.18-.28.36-.23.61-.14.25.09 1.6.76 1.87.9.27.14.45.21.52.33.07.12.07.68-.17 1.36z"/></svg>
+          Falar no WhatsApp
+        </a>
+        <a href="#" style="border:2px solid #3DA51D;color:#3DA51D;background:#fff;padding:13px 24px;border-radius:999px;font-weight:700;font-size:14px;" style-hover="background:#F5FAF3;">Solicitar Orçamento</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer style="background:#FFFFFF;">
+  <div style="max-width:1280px;margin:0 auto;padding:72px 32px 48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;">
+    <div>
+      <div style="display:flex;align-items:center;margin-bottom:16px;">
+        <img src="assets/arflex-logo.png" alt="Arflex Ar Condicionado" style="height:42px;width:auto;object-fit:contain;"/>
+      </div>
+      <p style="font-size:13.5px;color:#666666;line-height:1.6;max-width:240px;margin:0;">Referência em soluções de climatização, oferecendo conforto, eficiência e tecnologia para o seu ambiente.</p>
+      <div style="display:flex;gap:10px;margin-top:20px;">
+        <a href="#" style="width:36px;height:36px;border-radius:50%;background:#F5FAF3;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#3DA51D;">IG</a>
+        <a href="#" style="width:36px;height:36px;border-radius:50%;background:#F5FAF3;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#3DA51D;">IN</a>
+        <a href="#" style="width:36px;height:36px;border-radius:50%;background:#F5FAF3;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#3DA51D;">WA</a>
+      </div>
+    </div>
+    <div>
+      <div style="font-weight:700;color:#171717;margin-bottom:16px;font-size:14px;">Navegação</div>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <sc-for list="{{ footerNav }}" as="link" hint-placeholder-count="6">
+          <a href="#" style="font-size:14px;color:#666666;">{{ link }}</a>
+        </sc-for>
+      </div>
+    </div>
+    <div>
+      <div style="font-weight:700;color:#171717;margin-bottom:16px;font-size:14px;">Serviços</div>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <sc-for list="{{ footerServices }}" as="link" hint-placeholder-count="5">
+          <a href="#" style="font-size:14px;color:#666666;">{{ link }}</a>
+        </sc-for>
+      </div>
+    </div>
+    <div>
+      <div style="font-weight:700;color:#171717;margin-bottom:16px;font-size:14px;">Fale conosco</div>
+      <div style="font-size:14px;color:#666666;line-height:2;">
+        <div>(48) 3025-4004</div>
+        <div>(48) 99111-8002</div>
+        <div data-placeholder="true" title="Aguardando confirmação do cliente">[EMAIL ARFLEX]</div>
+        <div>Rua Cecília do Rego Almeida, 168<br/>Jardim Eldorado, Palhoça/SC<br/>CEP 88.133-560</div>
+      </div>
+    </div>
+  </div>
+  <div style="background:#3DA51D;padding:18px 32px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;">
+    <span style="color:#fff;font-size:13px;">© 2026 Arflex Engenharia da Climatização. Todos os direitos reservados.</span>
+    <span style="color:#fff;font-size:12px;opacity:0.85;">Desenvolvido por Linkefy</span>
+  </div>
+</footer>
+
+<div style="position:fixed;right:24px;bottom:24px;z-index:70;display:flex;align-items:center;gap:12px;">
+  <sc-if value="{{ waLabelVisible }}" hint-placeholder-val="{{ false }}">
+    <span style="background:#171717;color:#fff;font-size:13px;padding:8px 14px;border-radius:999px;white-space:nowrap;box-shadow:0 6px 20px rgba(23,23,23,0.2);">Falar com a Arflex</span>
+  </sc-if>
+  <a href="#" aria-label="Falar no WhatsApp" style="{{ waButtonStyle }}">
+    <svg viewBox="0 0 24 24" width="30" height="30" fill="#FFFFFF"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.79.47 3.48 1.29 4.94L2 22l5.29-1.39a9.87 9.87 0 004.75 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0012.04 2zm5.72 14.1c-.24.68-1.19 1.25-1.95 1.41-.52.11-1.2.2-3.48-.75-2.92-1.21-4.8-4.17-4.95-4.36-.14-.19-1.19-1.58-1.19-3.02 0-1.43.75-2.14 1.02-2.43.26-.29.57-.36.76-.36.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2.01.88 2.16.07.15.12.32.02.51-.09.19-.14.31-.28.48-.14.17-.29.37-.42.5-.14.14-.28.29-.12.57.16.28.71 1.17 1.52 1.9 1.05.94 1.93 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.18-.28.36-.23.61-.14.25.09 1.6.76 1.87.9.27.14.45.21.52.33.07.12.07.68-.17 1.36z"/></svg>
+  </a>
+</div>
+
+<sc-if value="{{ videoModalOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeVideo }}" style="position:fixed;inset:0;background:rgba(23,23,23,0.85);z-index:90;display:flex;align-items:center;justify-content:center;padding:24px;">
+    <div onClick="{{ stopProp }}" style="position:relative;width:100%;max-width:900px;">
+      <button onClick="{{ closeVideo }}" aria-label="Fechar vídeo" style="position:absolute;top:-44px;right:0;background:none;border:none;cursor:pointer;width:32px;height:32px;">
+        <span style="position:absolute;top:50%;left:0;width:100%;height:2px;background:#fff;transform:rotate(45deg);"></span>
+        <span style="position:absolute;top:50%;left:0;width:100%;height:2px;background:#fff;transform:rotate(-45deg);"></span>
+      </button>
+      <video src="assets/video-institucional.mp4" controls="" autoplay="" style="width:100%;border-radius:16px;display:block;background:#000;"></video>
+    </div>
+  </div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const NAV_ITEMS = [
+  {label:'Início', href:'#inicio'},
+  {label:'Sobre nós', href:'#sobre'},
+  {label:'Serviços', href:'#servicos'},
+  {label:'Projetos', href:'#projetos'},
+  {label:'Marcas', href:'#marcas'},
+  {label:'Contato', href:'#contato'},
+];
+const HERO_PERKS = [
+  {title:'Qualidade', desc:'Excelência em cada etapa do projeto.'},
+  {title:'Tecnologia', desc:'Equipamentos modernos e eficientes.'},
+  {title:'Sustentabilidade', desc:'Soluções que preservam o meio ambiente.'},
+];
+const SERVICES = [
+  {id:'inst', title:'Instalação', desc:'Instalação de sistemas de climatização residenciais, comerciais e industriais.', slot:'svc-instalacao', img:'assets/images/servico-instalacao.jpg'},
+  {id:'man', title:'Manutenção', desc:'Manutenção preventiva e corretiva para garantir eficiência e durabilidade.', slot:'svc-manutencao', img:'assets/images/servico-manutencao.jpg'},
+  {id:'proj', title:'Projetos', desc:'Projetos personalizados com tecnologia e eficiência para cada ambiente.', slot:'svc-projetos', img:'assets/images/servico-projetos.jpg'},
+  {id:'vrf', title:'Sistemas VRF', desc:'Soluções VRF de alto desempenho para grandes instalações.', slot:'svc-vrf', img:'assets/images/servico-vrf.jpg'},
+];
+const STATS = [
+  {id:'st1', target:500, label:'Projetos entregues'},
+  {id:'st2', target:15, label:'Anos de experiência'},
+  {id:'st3', target:200, label:'Clientes atendidos'},
+  {id:'st4', target:50, label:'Cidades atendidas'},
+];
+const PROJECTS = [
+  {id:'p1', category:'Indústria Alimentícia', meta:'Exaustão industrial com lavação de gases', slot:'proj-industria', img:'assets/images/projeto-industria.jpg'},
+  {id:'p2', category:'Hospital', meta:'Hospital de Traumatologia e Ortopedia · RJ', slot:'proj-hospital', img:'assets/images/projeto-hospital.jpg'},
+  {id:'p3', category:'Edifício Comercial', meta:'Edifício Mercury · Sistema Central VRF', slot:'proj-comercial', img:'assets/images/projeto-comercial.jpg'},
+];
+const WHY = [
+  {title:'Equipe especializada', desc:'Profissionais treinados e certificados para oferecer o melhor serviço.'},
+  {title:'Atendimento ágil', desc:'Suporte rápido e eficiente em todas as etapas do projeto.'},
+  {title:'Garantia de qualidade', desc:'Trabalhamos com as melhores marcas e equipamentos do mercado.'},
+  {title:'Soluções sustentáveis', desc:'Tecnologias que reduzem o consumo de energia e preservam o meio ambiente.'},
+];
+const FOOTER_NAV = ['Início','Sobre nós','Serviços','Projetos','Marcas','Contato'];
+const FOOTER_SERVICES = ['Instalação','Manutenção','Projetos','Sistemas VRF','PMOC'];
+
+class Component extends DCLogic {
+  state = {
+    scrolled: false,
+    mobileMenuOpen: false,
+    isMobile: typeof window !== 'undefined' ? window.innerWidth < 1120 : false,
+    revealed: {},
+    counts: {st1:0, st2:0, st3:0, st4:0},
+    countsStarted: false,
+    activeProject: 0,
+    whatsappPulse: false,
+    videoModalOpen: false,
+  };
+
+  _observers = {};
+  projectRefs = [];
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.onScroll);
+    window.addEventListener('resize', this.onResize);
+    this._pulseTimer = setTimeout(() => this.setState({whatsappPulse:true}), 2500);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll);
+    window.removeEventListener('resize', this.onResize);
+    clearTimeout(this._pulseTimer);
+    Object.values(this._observers).forEach(o => o && o.disconnect());
+  }
+
+  onScroll = () => {
+    const scrolled = window.scrollY > 12;
+    if (scrolled !== this.state.scrolled) this.setState({scrolled});
+  };
+
+  onResize = () => {
+    const isMobile = window.innerWidth < 1120;
+    if (isMobile !== this.state.isMobile) this.setState({isMobile});
+  };
+
+  toggleMobileMenu = () => this.setState(s => ({mobileMenuOpen: !s.mobileMenuOpen}));
+  closeMobileMenu = () => this.setState({mobileMenuOpen:false});
+  openVideo = () => this.setState({videoModalOpen:true});
+  closeVideo = () => this.setState({videoModalOpen:false});
+  stopProp = (e) => e.stopPropagation();
+
+  revealRef = (id) => (el) => {
+    if (!el || this._observers[id]) return;
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          this.setState(s => ({revealed: {...s.revealed, [id]: true}}));
+          if (id === 'stats' && !this.state.countsStarted) this.startCounters();
+          obs.disconnect();
+        }
+      });
+    }, {threshold: 0.2});
+    obs.observe(el);
+    this._observers[id] = obs;
+  };
+
+  revealStyle = (id, extra) => {
+    const visible = !!this.state.revealed[id];
+    return {
+      opacity: visible ? 1 : 0,
+      transform: visible ? 'translateY(0)' : 'translateY(28px)',
+      transition: 'opacity 0.7s ease, transform 0.7s ease',
+      ...(extra || {}),
+    };
+  };
+
+  startCounters = () => {
+    this.setState({countsStarted:true});
+    const duration = 1400;
+    const start = performance.now();
+    const step = (now) => {
+      const progress = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      this.setState({
+        counts: {
+          st1: Math.round(500 * eased),
+          st2: Math.round(15 * eased),
+          st3: Math.round(200 * eased),
+          st4: Math.round(50 * eased),
+        }
+      });
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+
+  setProjectRef = (i) => (el) => { this.projectRefs[i] = el; };
+  setProjectTrackRef = (el) => { this._projectTrack = el; };
+  scrollToProject = (i) => {
+    const el = this.projectRefs[i];
+    const track = this._projectTrack;
+    if (el && track) track.scrollTo({left: el.offsetLeft - 4, behavior:'smooth'});
+    this.setState({activeProject:i});
+  };
+
+  renderVals() {
+    const isMobile = this.state.isMobile;
+    const rowCol = (gap, smallGap) => ({display:'flex', flexDirection: isMobile?'column':'row', gap: isMobile?smallGap:gap, alignItems:'center'});
+
+    return {
+      isMobile,
+      mobileMenuOpen: this.state.mobileMenuOpen,
+      toggleMobileMenu: this.toggleMobileMenu,
+      closeMobileMenu: this.closeMobileMenu,
+      videoModalOpen: this.state.videoModalOpen,
+      openVideo: this.openVideo,
+      closeVideo: this.closeVideo,
+      stopProp: this.stopProp,
+      navItemsRest: NAV_ITEMS.slice(1),
+      heroPerks: HERO_PERKS,
+      services: SERVICES,
+      stats: STATS.map(s => ({...s, value: this.state.counts[s.id] || 0})),
+      projects: PROJECTS.map((p,i) => ({...p, ref: this.setProjectRef(i)})),
+      projectDots: PROJECTS.map((p,i) => {
+        const active = i === this.state.activeProject;
+        return {
+          onClick: () => this.scrollToProject(i),
+          style: {
+            width: active ? '22px':'8px', height:'8px', borderRadius:'999px', border:'none',
+            background: active ? '#3DA51D':'#666666', opacity: active?1:0.35, cursor:'pointer',
+            transition:'all 0.3s ease', padding:0,
+          },
+        };
+      }),
+      setProjectTrackRef: this.setProjectTrackRef,
+      why: WHY,
+      footerNav: FOOTER_NAV,
+      footerServices: FOOTER_SERVICES,
+      waLabelVisible: this.state.whatsappPulse && !isMobile,
+      waButtonStyle: {
+        width:'60px', height:'60px', borderRadius:'50%', background:'#3DA51D',
+        display:'flex', alignItems:'center', justifyContent:'center',
+        boxShadow:'0 10px 30px rgba(61,165,29,0.4)', cursor:'pointer',
+        animation: this.state.whatsappPulse ? 'wa-pulse 2.2s ease-out infinite' : 'none',
+      },
+      headerBarStyle: {
+        background: this.state.scrolled ? 'rgba(255,255,255,0.94)' : 'rgba(255,255,255,0.85)',
+        boxShadow: this.state.scrolled ? '0 8px 30px rgba(23,23,23,0.08)' : 'none',
+        backdropFilter:'blur(10px)',
+        WebkitBackdropFilter:'blur(10px)',
+        transition:'background 0.3s ease, box-shadow 0.3s ease',
+      },
+      heroInnerStyle: { ...this.revealStyle('hero'), ...rowCol('64px','40px'), maxWidth:'1280px', margin:'0 auto' },
+      heroImageWrapStyle: { flex:1, minWidth:'280px', position:'relative', marginBottom: isMobile?'56px':'40px' },
+      heroCardStyle: isMobile
+        ? { cursor:'pointer', position:'absolute', left:'12px', bottom:'-32px', background:'#fff', borderRadius:'14px', boxShadow:'0 12px 30px rgba(23,23,23,0.16)', padding:'10px 12px', display:'flex', alignItems:'center', gap:'10px', maxWidth:'62%', zIndex:2 }
+        : { cursor:'pointer', position:'absolute', left:'24px', bottom:'-28px', background:'#fff', borderRadius:'16px', boxShadow:'0 16px 40px rgba(23,23,23,0.14)', padding:'14px 18px', display:'flex', alignItems:'center', gap:'14px', maxWidth:'280px' },
+      heroSecondaryStyle: isMobile
+        ? { position:'absolute', right:'-8px', top:'-16px', width:'44%', aspectRatio:'4/3', border:'3px solid #fff', borderRadius:'12px', boxShadow:'0 10px 24px rgba(23,23,23,0.16)', overflow:'hidden', zIndex:1 }
+        : { position:'absolute', right:'-14px', bottom:'-40px', width:'150px', height:'110px', border:'4px solid #fff', borderRadius:'16px', boxShadow:'0 16px 30px rgba(23,23,23,0.18)', overflow:'hidden' },
+      trustInnerStyle: this.revealStyle('trust', {maxWidth:'760px', margin:'0 auto'}),
+      servicesInnerStyle: this.revealStyle('services', {maxWidth:'1280px', margin:'0 auto'}),
+      statsInnerStyle: { ...this.revealStyle('stats'), background:'#3DA51D', borderRadius:'28px', maxWidth:'1280px', margin:'0 auto', padding: isMobile?'40px 24px':'56px 40px', display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(140px,1fr))', gap:'28px' },
+      projectsInnerStyle: this.revealStyle('projects', {maxWidth:'1280px', margin:'0 auto'}),
+      brandsInnerStyle: this.revealStyle('brands', {maxWidth:'1000px', margin:'0 auto'}),
+      whyInnerStyle: { ...this.revealStyle('why'), ...rowCol('72px','40px'), maxWidth:'1280px', margin:'0 auto' },
+      ctaInnerStyle: { ...this.revealStyle('cta'), ...rowCol('56px','32px'), maxWidth:'1200px', margin:'0 auto' },
+      heroRevealRef: this.revealRef('hero'),
+      trustRevealRef: this.revealRef('trust'),
+      servicesRevealRef: this.revealRef('services'),
+      statsRevealRef: this.revealRef('stats'),
+      projectsRevealRef: this.revealRef('projects'),
+      brandsRevealRef: this.revealRef('brands'),
+      whyRevealRef: this.revealRef('why'),
+      ctaRevealRef: this.revealRef('cta'),
+    };
+  }
+}
+</script>
+</body>
+</html>
